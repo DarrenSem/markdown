@@ -6,7 +6,7 @@ if( !document.getElementById("resizer") ) { document.addEventListener("DOMConten
 
   let loc = location;
   let MLP = "markdownlivepreview.com";
-  if( loc.hostname && loc.hostname != MLP ) { loc.href = "https://" + MLP; } else {
+  if( loc.hostname && loc.hostname != MLP && false ) { loc.href = "https://" + MLP; } else {
 
     let doc = document;
     let q = (id) => doc.getElementById(id);
