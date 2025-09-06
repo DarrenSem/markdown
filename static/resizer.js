@@ -1,5 +1,5 @@
 // MarkDownLivePreview.com-resizer.js -- bookmarklet to add 'Toggle Editor' (and also width-resizer, and 'Print') - instead of waiting for repo update that might use something like this <script defer src="resizer.js"></script>
-// 3505 char  javascript:void function(){"use strict";const e="extra-button",t="minedit",n="mouse",i="width",r="click",d="editor",o=document,l=e=>o.getElementById(e),a=(e,t)=>[...(t||o).querySelectorAll(e)],s=(e,t)=>Object.assign(o.createElement(e||"div"),t),c=(e,...t)=>e.addEventListener(...t),p=(e,...t)=>e.removeEventListener(...t),m=setTimeout,u=40,f=window,h=(e="resizer-css")=>{if(l(e))return;const t=["\nbody {\n  margin: 0;\n  height: 100vh;\n  overflow: hidden;\n}\n#container {\n  display: flex;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n}\n#resizer {\n  width: 4px;\n  background-color: green;\n  cursor: col-resize;\n  flex-shrink: 0;\n}\n"],n=["\n#edit, #preview {\n  flex-grow: 1;\n  overflow: auto;\n  transition: flex 0.02s ease;\n}\n.extra-button {\n  margin-left: 16px;\n}\n.minedit {\n  flex: 0 0 0px !important;\n}\n"],i=o.head.insertAdjacentElement("afterBegin",s("style",{id:e,innerHTML:(k?"":t[0])+n[0]}));return i},g=(e,t)=>{const n=e.getBoundingClientRect();return t?n[t]:n},v=(d=99,a="resizer",h="toggle-button")=>{var v=Math.abs;if(l(a))return;let y=!1,b=0,w=0;const x=200,z=l("copy-button").insertAdjacentElement("afterEnd",s(0,{id:h,innerHTML:`<a href="#">Toggle Editor</a>`,className:e})),M=L.insertBefore(s(0,{id:a}),E),T=l("edit"),B=()=>g(T,i),C=()=>g(L,i),H=()=>T.classList.contains(t),_=(e,n)=>{if(e>=d||n){const i=C();i-e>=d&&(n||H()||(b=e/i,q(b,!0)),T.classList.remove(t),T.style.flex=`0 0 ${e}px`)}},j=e=>{y&&_(e.clientX-g(L,"left"))},A=()=>{y=!1,p(o,n+"move",j),p(o,n+"up",A),q(b)},D=E._?.Storehouse,N=E._?.localStorageNamespace,S="last_ratio",q=(e,t,n=new Date)=>{(!t||n>w)&&(D?.setItem(N,S,e,new Date(2099,1,1)),w=+n+x)},I=B()/C(),O=D?.getItem(N,S);return k||(c(k||M,"dblclick",e=>{e.preventDefault(),_(I*C(),!0),q(I)}),c(M,n+"down",e=>{y=!0,e.preventDefault(),c(o,n+"move",j),c(o,n+"up",A),q(b)}),c(f,"resize",()=>{if(!H()){const e=C(),t=B(),n=e-t<d;_(n?t<d?t:e-d:e*b,n)}}),O&&.01<v(O-I)&&_(C()*O,!0),m(()=>{b=B()/C(),O||q(b)},u)),M.title="drag to resize, double-click to return to center",k&&(k.title=M.title),c(z,r,()=>{T.classList.toggle(t)}),M},y=e=>M?.getValue()??a(".sticky-widget-lines,.view-line",l(d)).map(e=>e.style.top.padStart(9,0)+e.innerText).sort().map(e=>e.slice(9)).join("\n"),b=e=>{const t=y().split("\n").map(e=>e.trim()),n=(t.find(e=>(e.match(/^#\s+(.+)/)||[])[1])??t.find(e=>(e.match(/^##\s+(.+)/)||[])[1])??t.filter(e=>e.length)[0]??"").replace(/^##?\s+/,"");return n?.length?n:e},w=(t="print-button",n="print-child")=>{if(l(t))return;const i=o.title,d=l("sync-button").insertAdjacentElement("beforeBegin",s(0,{id:t,innerHTML:`<a href="#">Print</a>`,className:e})),p=()=>{const e=prompt("Printing: what title?",b(o.title)),t=e?.trim();if(null==e)return;o.title=t.length?t:i,l(n)?.remove();const r=l("output"),d=o.head.cloneNode(!0);a("script",d).forEach(e=>e.remove()),d.appendChild(s("style",{textContent:"@media print { body { height: auto !important; } }"}));const c=s("iframe",{id:n});c.style.display="none",o.body.appendChild(c);const p=c.contentWindow,f=c.contentDocument||p.document;c.onload=()=>{m(()=>{p.focus(),p.print(),m(()=>{c?.remove()},u)},u)},f.open(),f.write("<html><head>"+d.innerHTML+"</head><body>"+r.outerHTML+"</body></html>"),f.close()};return c(d,r,p),d},x=()=>{L=l("container"),E=l("preview"),k=l("split-divider"),L&&E?(z=E._?.presetValue,M=E._?.editor??f.ace?.edit(d),h(),v(),w()):location="https://darrensem.github.io/markdown/"};let L,E,k,z,M;void(/loading/.test(o.readyState)?c(o,"DOMContentLoaded",x):m(x,u))}();
+// 3551 char  javascript:void function(){"use strict";const e="extra-button",t="minedit",n="mouse",i="width",d="click",r="editor",o=document,l=e=>(e??"").replace(/[\u200d]/g,"").replace(/\s+/g," ").trim(),a=e=>o.getElementById(e),s=(e,t)=>[...(t||o).querySelectorAll(e)],c=(e,t)=>Object.assign(o.createElement(e||"div"),t),p=(e,...t)=>e.addEventListener(...t),u=(e,...t)=>e.removeEventListener(...t),m=e=>e.preventDefault(),f=setTimeout,h=40,g=window,y=(e="resizer-css")=>{if(a(e))return;const t=["\nbody {\n  margin: 0;\n  height: 100vh;\n  overflow: hidden;\n}\n#container {\n  display: flex;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n}\n#resizer {\n  width: 4px;\n  background-color: green;\n  cursor: col-resize;\n  flex-shrink: 0;\n}\n"],n=["\n#edit, #preview {\n  flex-grow: 1;\n  overflow: auto;\n  transition: flex 0.02s ease;\n}\n.extra-button {\n  margin-left: 16px;\n}\n.minedit {\n  flex: 0 0 0px !important;\n}\n"],i=o.head.insertAdjacentElement("afterBegin",c("style",{id:e,innerHTML:(M?"":t[0])+n[0]}));return i},b=(e,t)=>{const n=e.getBoundingClientRect();return t?n[t]:n},v=(r=99,l="resizer",s="toggle-button")=>{var y=Math.abs;if(a(l))return;let v=!1,w=0,x=0;const L=200,E=a("copy-button").insertAdjacentElement("afterEnd",c(0,{id:s,innerHTML:`<a href="#">Toggle Editor</a>`,className:e})),T=k.insertBefore(c(0,{id:l}),z),B=a("edit"),C=()=>b(B,i),H=()=>b(k,i),j=()=>B.classList.contains(t),A=(e,n)=>{if(e>=r||n){const i=H();i-e>=r&&(n||j()||(w=e/i,I(w,!0)),B.classList.remove(t),B.style.flex=`0 0 ${e}px`)}},N=e=>{v&&A(e.clientX-b(k,"left"))},_=()=>{v=!1,u(o,n+"move",N),u(o,n+"up",_),I(w)},D=z._?.Storehouse,S=z._?.localStorageNamespace,q="last_ratio",I=(e,t,n=new Date)=>{(!t||n>x)&&(D?.setItem(S,q,e,new Date(2099,1,1)),x=+n+L)},O=C()/H(),P=D?.getItem(S,q);return M||(p(M||T,"dblclick",e=>{m(e),A(O*H(),!0),I(O)}),p(T,n+"down",e=>{v=!0,m(e),p(o,n+"move",N),p(o,n+"up",_),I(w)}),p(g,"resize",()=>{if(!j()){const e=H(),t=C(),n=e-t<r;A(n?t<r?t:e-r:e*w,n)}}),P&&.01<y(P-O)&&A(H()*P,!0),f(()=>{w=C()/H(),P||I(w)},h)),T.title="drag to resize, double-click to return to center",M&&(M.title=T.title),p(E,d,e=>{m(e),B.classList.toggle(t)}),T},w=e=>T?.getValue()??s(".sticky-widget-lines,.view-line",a(r)).map(e=>e.style.top.padStart(9,0)+e.innerText).sort().map(e=>e.slice(9)).join("\n"),x=e=>{const t=w().split("\n").map(e=>l(e)),n=(t.find(e=>(e.match(/^#\s+(.+)/)||[])[1])??t.find(e=>(e.match(/^##\s+(.+)/)||[])[1])??t.filter(e=>e.length)[0]??"").replace(/^##?\s+/,"");return n?.length?n:e},L=(t="print-button",n="print-child")=>{if(a(t))return;const i=o.title,r=a("sync-button").insertAdjacentElement("beforeBegin",c(0,{id:t,innerHTML:`<a href="#">Print</a>`,className:e})),u=()=>{const e=prompt("Printing: what title?",x(o.title)),t=l(e);if(null==e)return;o.title=t.length?t:i,a(n)?.remove();const d=a("output"),r=o.head.cloneNode(!0);s("script",r).forEach(e=>e.remove()),r.appendChild(c("style",{textContent:"@media print { body { height: auto !important; } }"}));const p=c("iframe",{id:n});p.style.display="none",o.body.appendChild(p);const u=p.contentWindow,m=p.contentDocument||u.document;p.onload=()=>{f(()=>{u.focus(),u.print(),f(()=>{p?.remove()},h)},h)},m.open(),m.write("<html><head>"+r.innerHTML+"</head><body>"+d.outerHTML+"</body></html>"),m.close()};return p(r,d,e=>{m(e),u()}),r},E=()=>{k=a("container"),z=a("preview"),M=a("split-divider"),k&&z?(T=z._?.editor??g.ace?.edit(r),y(),v(),L()):location="https://darrensem.github.io/markdown/"};let k,z,M,T;void(/loading/.test(o.readyState)?p(o,"DOMContentLoaded",E):f(E,h))}();
 // original version of my [Toggle Editor] idea was this Issue: https://github.com/tanabe/markdown-live-preview/issues/56
 
 
@@ -25,6 +25,15 @@ const ID_EDITOR = "editor";
 
 const doc = document;
 
+const trimmer = (v) => {
+  return (
+    (v ?? "")
+    .replace(/[\u200d]/g, "") // (8205) Zero Width Joiner
+    .replace(/\s+/g, " ") // (160) No-Break Space [\u00a0], (9) Tab [\u0009], (10) LF [\u000a], (13) CR [\u000d],  etc.
+    .trim()
+  );
+};
+
 const qi = (id) => doc.getElementById(id);
 
 const qs = (sel, root) => [... (root || doc).querySelectorAll(sel) ];
@@ -34,6 +43,8 @@ const createDiv = (tagName, options) => Object.assign( doc.createElement( tagNam
 const on = (el, ...args) => el.addEventListener(...args); // smaller MINIFY if 3+ usage vs. normal, because normal = 25 char for a.addEventListener(b,c,d) vs. 37 for definition ,X=(a,...b)=>a.addEventListener(...b) + 10 per usage: X(a,b,c,d) // 47 57 _67_ versus 25 50 _75_
 
 const off = (el, ...args) => el.removeEventListener(...args); // smaller MINIFY if 3+ usage vs. normal, because normal = 28 char for a.removeEventListener(b,c,d) vs. 40 for definition ,X=(a,...b)=>a.removeEventListener(...b) + 10 per usage: X(a,b,c,d) // 50 60 _70_ versus 28 56 _84_
+
+const PREVENT_DEFAULT = evt => evt.preventDefault(); // smaller MINIFY if 2+ usage vs. normal, because normal = 18 char for a.preventDefault() vs. 24 for definition ,X=a=>a.preventDefault() + 3 per usage: X() // 27 _30_ versus 18 _36_
 
 const SET_TIMEOUT = setTimeout; // smaller MINIFY if 2+ usage vs. normal, because normal = 10 char for setTimeout vs. 13 for definition ,X=setTimeout + 1 per usage: X // 14 _15_ versus 10 _20_
 
@@ -196,14 +207,14 @@ const setupResizer = (MIN_WIDTH_EDITOR_PANE = 99, ID_RESIZER = "resizer", ID_TOG
   if (!splitDividerMLP) {
 
     on( splitDividerMLP || resizer, "dblclick", (evt) => {
-      evt.preventDefault(); // prevent text selection during resizing (otherwise bad UX and might event contribute to feeling laggy)
+      PREVENT_DEFAULT(evt); // prevent text selection during resizing (otherwise bad UX and might event contribute to feeling laggy)
       updateResizer( ratioCentered * getWidthContainer(), !!"keepRatio" );
       saveRatio(ratioCentered);
     } );
 
     on( resizer, MOUSE_PREFIX + "down", (evt) => {
       isMouseDown = true;
-      evt.preventDefault(); // prevent text selection during resizing (otherwise bad UX and might event contribute to feeling laggy)
+      PREVENT_DEFAULT(evt); // prevent text selection during resizing (otherwise bad UX and might event contribute to feeling laggy)
       on( doc, MOUSE_PREFIX + "move", handleResize );
       on( doc, MOUSE_PREFIX + "up", stopResize );
       saveRatio(ratio);
@@ -246,7 +257,8 @@ const setupResizer = (MIN_WIDTH_EDITOR_PANE = 99, ID_RESIZER = "resizer", ID_TOG
   resizer.title = "drag to resize, double-click to return to center";
   if (splitDividerMLP) splitDividerMLP.title = resizer.title;
 
-  on( toggleButton, CLICK_EVENT, () => {
+  on( toggleButton, CLICK_EVENT, (evt) => {
+    PREVENT_DEFAULT(evt);
     editPane.classList.toggle(CLASS_MIN_EDIT);
   } );
 
@@ -310,7 +322,7 @@ const getTitle = (defaultTitle) => {
 
   const trimmedLines = getEditorText()
   .split("\n")
-  .map( line => line.trim() );
+  .map( line => trimmer(line) );
 
   const titleLine = (
     trimmedLines.find( line => (line.match(/^#\s+(.+)/) || [])[1] )
@@ -341,7 +353,7 @@ const setupPrintButton = (ID_PRINT_BUTTON = "print-button", ID_PRINT_CHILD = "pr
 
     const newTitle = prompt( "Printing: what title?", getTitle(doc.title) );
     
-    const trimmedTitle = newTitle?.trim();
+    const trimmedTitle = trimmer(newTitle);
     
     if (newTitle == null) return;
     
@@ -397,7 +409,10 @@ const setupPrintButton = (ID_PRINT_BUTTON = "print-button", ID_PRINT_CHILD = "pr
 
   };
 
-  on( printButton, CLICK_EVENT, handlePrintClick );
+  on( printButton, CLICK_EVENT, (evt) => {
+    PREVENT_DEFAULT(evt);
+    handlePrintClick();
+  } );
 
   return printButton;
 };
