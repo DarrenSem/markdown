@@ -254,4 +254,9 @@ This web site is using ${"`"}markedjs/marked${"`"}.
 
     let scrollBarSettings = loadScrollBarSettings() || false;
     initScrollBarSync(scrollBarSettings);
+
+    document.querySelector("#preview")._ = {
+        editor
+    };
+
 });
