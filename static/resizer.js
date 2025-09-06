@@ -1,8 +1,10 @@
 // MarkDownLivePreview.com-resizer.js -- bookmarklet to add 'Toggle Editor' (and also width-resizer, and 'Print') - instead of waiting for repo update that might use something like this <script defer src="resizer.js"></script>
-// 3235 char  javascript:void function(){"use strict";const a="extra-button",b="minedit",c="mouse",d="width",e="click",f="editor",g=document,h=a=>g.getElementById(a),i=(a,b)=>[...(b||g).querySelectorAll(a)],j=(a,b)=>Object.assign(g.createElement(a||"div"),b),k=(a,...b)=>a.addEventListener(...b),l=(a,...b)=>a.removeEventListener(...b),m=setTimeout,n=window,o=(a="resizer-css")=>{if(h(a))return;const b=["\nbody {\n  margin: 0;\n  height: 100vh;\n  overflow: hidden;\n}\n#container {\n  display: flex;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n}\n#resizer {\n  width: 4px;\n  background-color: green;\n  cursor: col-resize;\n  flex-shrink: 0;\n}\n"],c=["\n#edit, #preview {\n  flex-grow: 1;\n  overflow: auto;\n  transition: flex 0.02s ease;\n}\n.extra-button {\n  margin-left: 16px;\n}\n.minedit {\n  flex: 0 0 0px !important;\n}\n"],d=g.head.insertAdjacentElement("afterBegin",j("style",{id:a,innerHTML:(x?"":b[0])+c[0]}));return d},p=(a,b)=>{const c=a.getBoundingClientRect();return b?c[b]:c},q=(f=99,i="resizer",m="toggle-button")=>{if(h(i))return;let o;const q=h("copy-button").insertAdjacentElement("afterEnd",j(0,{id:m,innerHTML:`<a href="#">Toggle Editor</a>`,className:a})),r=v.insertBefore(j(0,{id:i}),w),s=h("edit"),t=()=>p(s,d),u=()=>p(v,d),y=()=>s.classList.contains(b),z=(a,c)=>{if(a>=f||c){const d=u();d-a>=f&&(c||y()||(C=a/d),s.classList.remove(b),s.style.flex=`0 0 ${a}px`)}},A=a=>{o&&z(a.clientX-p(v,"left"))},B=()=>{o=!1,l(g,c+"move",A),l(g,c+"up",B)};let C=t()/u();return x||(k(x||r,"dblclick",a=>{a.preventDefault(),z(.5*u(),!0)}),k(r,c+"down",a=>{o=!0,a.preventDefault(),k(g,c+"move",A),k(g,c+"up",B)}),k(n,"resize",()=>{if(!y()){const a=u(),b=t(),c=a-b<f;z(c?b<f?b:a-f:a*C,c)}})),r.title="drag to resize, double-click to return to center",x&&(x.title=r.title),k(q,e,()=>{s.classList.toggle(b)}),r},r=a=>z?.getValue()??i(".sticky-widget-lines,.view-line",h(f)).map(a=>a.style.top.padStart(9,0)+a.innerText).sort().map(a=>a.slice(9)).join("\n"),s=a=>{const b=r().split("\n").map(a=>a.trim()),c=(b.find(a=>(a.match(/^#\s+(.+)/)||[])[1])??b.find(a=>(a.match(/^##\s+(.+)/)||[])[1])??b.filter(a=>a.length)[0]??"").replace(/^##?\s+/,"");return c?.length?c:a},t=(b="print-button",c="print-child")=>{if(h(b))return;const d=g.title,f=h("sync-button").insertAdjacentElement("beforeBegin",j(0,{id:b,innerHTML:`<a href="#">Print</a>`,className:a})),l=()=>{const a=prompt("Printing: what title?",s(g.title)),b=a?.trim();if(null==a)return;g.title=b.length?b:d,h(c)?.remove();const e=h("output"),f=g.head.cloneNode(!0);i("script",f).forEach(a=>a.remove()),f.appendChild(j("style",{textContent:"@media print { body { height: auto !important; } }"}));const k=j("iframe",{id:c});k.style.display="none",g.body.appendChild(k);const l=k.contentWindow,n=k.contentDocument||l.document;k.onload=()=>{m(()=>{l.focus(),l.print(),m(()=>{k?.remove()},9)},9)},n.open(),n.write("<html><head>"+f.innerHTML+"</head><body>"+e.outerHTML+"</body></html>"),n.close()};return k(f,e,l),f},u=()=>{v=h("container"),w=h("preview"),x=h("split-divider"),v&&w?(y=w._?.presetValue,z=w._?.editor??n.ace?.edit(f),o(),q(),t()):location="https://darrensem.github.io/markdown/"};let v,w,x,y,z;void(/loading/.test(g.readyState)?k(g,"DOMContentLoaded",u):m(u,9))}();
+// 3505 char  javascript:void function(){"use strict";const e="extra-button",t="minedit",n="mouse",i="width",r="click",d="editor",o=document,l=e=>o.getElementById(e),a=(e,t)=>[...(t||o).querySelectorAll(e)],s=(e,t)=>Object.assign(o.createElement(e||"div"),t),c=(e,...t)=>e.addEventListener(...t),p=(e,...t)=>e.removeEventListener(...t),m=setTimeout,u=40,f=window,h=(e="resizer-css")=>{if(l(e))return;const t=["\nbody {\n  margin: 0;\n  height: 100vh;\n  overflow: hidden;\n}\n#container {\n  display: flex;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n}\n#resizer {\n  width: 4px;\n  background-color: green;\n  cursor: col-resize;\n  flex-shrink: 0;\n}\n"],n=["\n#edit, #preview {\n  flex-grow: 1;\n  overflow: auto;\n  transition: flex 0.02s ease;\n}\n.extra-button {\n  margin-left: 16px;\n}\n.minedit {\n  flex: 0 0 0px !important;\n}\n"],i=o.head.insertAdjacentElement("afterBegin",s("style",{id:e,innerHTML:(k?"":t[0])+n[0]}));return i},g=(e,t)=>{const n=e.getBoundingClientRect();return t?n[t]:n},v=(d=99,a="resizer",h="toggle-button")=>{var v=Math.abs;if(l(a))return;let y=!1,b=0,w=0;const x=200,z=l("copy-button").insertAdjacentElement("afterEnd",s(0,{id:h,innerHTML:`<a href="#">Toggle Editor</a>`,className:e})),M=L.insertBefore(s(0,{id:a}),E),T=l("edit"),B=()=>g(T,i),C=()=>g(L,i),H=()=>T.classList.contains(t),_=(e,n)=>{if(e>=d||n){const i=C();i-e>=d&&(n||H()||(b=e/i,q(b,!0)),T.classList.remove(t),T.style.flex=`0 0 ${e}px`)}},j=e=>{y&&_(e.clientX-g(L,"left"))},A=()=>{y=!1,p(o,n+"move",j),p(o,n+"up",A),q(b)},D=E._?.Storehouse,N=E._?.localStorageNamespace,S="last_ratio",q=(e,t,n=new Date)=>{(!t||n>w)&&(D?.setItem(N,S,e,new Date(2099,1,1)),w=+n+x)},I=B()/C(),O=D?.getItem(N,S);return k||(c(k||M,"dblclick",e=>{e.preventDefault(),_(I*C(),!0),q(I)}),c(M,n+"down",e=>{y=!0,e.preventDefault(),c(o,n+"move",j),c(o,n+"up",A),q(b)}),c(f,"resize",()=>{if(!H()){const e=C(),t=B(),n=e-t<d;_(n?t<d?t:e-d:e*b,n)}}),O&&.01<v(O-I)&&_(C()*O,!0),m(()=>{b=B()/C(),O||q(b)},u)),M.title="drag to resize, double-click to return to center",k&&(k.title=M.title),c(z,r,()=>{T.classList.toggle(t)}),M},y=e=>M?.getValue()??a(".sticky-widget-lines,.view-line",l(d)).map(e=>e.style.top.padStart(9,0)+e.innerText).sort().map(e=>e.slice(9)).join("\n"),b=e=>{const t=y().split("\n").map(e=>e.trim()),n=(t.find(e=>(e.match(/^#\s+(.+)/)||[])[1])??t.find(e=>(e.match(/^##\s+(.+)/)||[])[1])??t.filter(e=>e.length)[0]??"").replace(/^##?\s+/,"");return n?.length?n:e},w=(t="print-button",n="print-child")=>{if(l(t))return;const i=o.title,d=l("sync-button").insertAdjacentElement("beforeBegin",s(0,{id:t,innerHTML:`<a href="#">Print</a>`,className:e})),p=()=>{const e=prompt("Printing: what title?",b(o.title)),t=e?.trim();if(null==e)return;o.title=t.length?t:i,l(n)?.remove();const r=l("output"),d=o.head.cloneNode(!0);a("script",d).forEach(e=>e.remove()),d.appendChild(s("style",{textContent:"@media print { body { height: auto !important; } }"}));const c=s("iframe",{id:n});c.style.display="none",o.body.appendChild(c);const p=c.contentWindow,f=c.contentDocument||p.document;c.onload=()=>{m(()=>{p.focus(),p.print(),m(()=>{c?.remove()},u)},u)},f.open(),f.write("<html><head>"+d.innerHTML+"</head><body>"+r.outerHTML+"</body></html>"),f.close()};return c(d,r,p),d},x=()=>{L=l("container"),E=l("preview"),k=l("split-divider"),L&&E?(z=E._?.presetValue,M=E._?.editor??f.ace?.edit(d),h(),v(),w()):location="https://darrensem.github.io/markdown/"};let L,E,k,z,M;void(/loading/.test(o.readyState)?c(o,"DOMContentLoaded",x):m(x,u))}();
 // original version of my [Toggle Editor] idea was this Issue: https://github.com/tanabe/markdown-live-preview/issues/56
 
 
+
+// true && ( () => { // IIFE wrapper to make it easy to disable everything (to confirm something still occurs without my resizer)
 
 "use strict";
 
@@ -34,6 +36,8 @@ const on = (el, ...args) => el.addEventListener(...args); // smaller MINIFY if 3
 const off = (el, ...args) => el.removeEventListener(...args); // smaller MINIFY if 3+ usage vs. normal, because normal = 28 char for a.removeEventListener(b,c,d) vs. 40 for definition ,X=(a,...b)=>a.removeEventListener(...b) + 10 per usage: X(a,b,c,d) // 50 60 _70_ versus 28 56 _84_
 
 const SET_TIMEOUT = setTimeout; // smaller MINIFY if 2+ usage vs. normal, because normal = 10 char for setTimeout vs. 13 for definition ,X=setTimeout + 1 per usage: X // 14 _15_ versus 10 _20_
+
+const MS_MINIMAL = 40;
 
 // const DATE_OBJECT = Date; // smaller MINIFY if 3+ usage vs. normal, because normal = 4 char for Date vs. 7 for definition ,X=Date + 1 per usage: X // 8 9 _10_ vs. 4 8 _12_
 
@@ -105,7 +109,13 @@ const getRect = (el, propName) => {
 const setupResizer = (MIN_WIDTH_EDITOR_PANE = 99, ID_RESIZER = "resizer", ID_TOGGLE_BUTTON = "toggle-button") => {
   if ( qi(ID_RESIZER) ) return;
 
-  let isMouseDown;
+  let isMouseDown = false;
+
+  let ratio = 0;
+
+  let throttleSaveRatio = 0;
+
+  const MS_THROTTLE_SAVE_RATIO = 200;
 
   const toggleButton = qi("copy-button").insertAdjacentElement(
     "afterEnd",
@@ -141,6 +151,7 @@ const setupResizer = (MIN_WIDTH_EDITOR_PANE = 99, ID_RESIZER = "resizer", ID_TOG
 
         if ( !keepRatio && !isEditorMinified() ) {
           ratio = newEditWidth / widthContainer;
+          saveRatio( ratio, !!"throttled" );
         };
 
         editPane.classList.remove(CLASS_MIN_EDIT);
@@ -162,15 +173,32 @@ const setupResizer = (MIN_WIDTH_EDITOR_PANE = 99, ID_RESIZER = "resizer", ID_TOG
     isMouseDown = false;
     off( doc, MOUSE_PREFIX + "move", handleResize );
     off( doc, MOUSE_PREFIX + "up", stopResize );
+    saveRatio(ratio);
   };
 
-  let ratio = getWidthEditor() / getWidthContainer();
+  const storageObject = previewPane._?.Storehouse;
 
+  const storageNS = previewPane._?.localStorageNamespace;
+
+  const storageKeyRatio = "last_ratio";
+
+  const saveRatio = ( ratioToSave, throttled, _now = new Date() ) => {
+    if (!throttled || ( _now > throttleSaveRatio) ) {
+      storageObject?.setItem(storageNS, storageKeyRatio, ratioToSave, new Date(2099, 1, 1));
+      throttleSaveRatio = +_now + MS_THROTTLE_SAVE_RATIO;
+    };
+  };
+
+  const ratioCentered = getWidthEditor() / getWidthContainer();
+
+  const ratioLoaded = storageObject?.getItem(storageNS, storageKeyRatio);
+  
   if (!splitDividerMLP) {
 
     on( splitDividerMLP || resizer, "dblclick", (evt) => {
       evt.preventDefault(); // prevent text selection during resizing (otherwise bad UX and might event contribute to feeling laggy)
-      updateResizer( 0.5 * getWidthContainer(), !!"keepRatio" );
+      updateResizer( ratioCentered * getWidthContainer(), !!"keepRatio" );
+      saveRatio(ratioCentered);
     } );
 
     on( resizer, MOUSE_PREFIX + "down", (evt) => {
@@ -178,6 +206,7 @@ const setupResizer = (MIN_WIDTH_EDITOR_PANE = 99, ID_RESIZER = "resizer", ID_TOG
       evt.preventDefault(); // prevent text selection during resizing (otherwise bad UX and might event contribute to feeling laggy)
       on( doc, MOUSE_PREFIX + "move", handleResize );
       on( doc, MOUSE_PREFIX + "up", stopResize );
+      saveRatio(ratio);
     } );
 
     on( WINDOW_OBJECT, "resize", () => {
@@ -200,6 +229,17 @@ const setupResizer = (MIN_WIDTH_EDITOR_PANE = 99, ID_RESIZER = "resizer", ID_TOG
       };
 
     } );
+
+    if ( ratioLoaded && ( Math.abs(ratioLoaded - ratioCentered) > 0.01 ) ) {
+      updateResizer( getWidthContainer() * ratioLoaded, !!"keepRatio" );
+    };
+
+    SET_TIMEOUT( () => {
+      ratio = getWidthEditor() / getWidthContainer();
+      if (!ratioLoaded) {
+        saveRatio(ratio);
+      };
+    }, MS_MINIMAL);
 
   };
 
@@ -345,9 +385,9 @@ const setupPrintButton = (ID_PRINT_BUTTON = "print-button", ID_PRINT_CHILD = "pr
 
         SET_TIMEOUT( () => {
           childframe?.remove();
-        }, 9 );
+        }, MS_MINIMAL );
 
-      }, 9 );
+      }, MS_MINIMAL );
 
     };
 
@@ -399,12 +439,16 @@ let splitDividerMLP; // splitDividerMLP = qi(ID_SPLIT_DIVIDER); // "split-divide
 
 let editor;
 
+
 void (
 
   /loading/.test(doc.readyState) ?
 
   on( doc, "DOMContentLoaded", init )
 
-  : SET_TIMEOUT( init, 9 ) // Bookmarklet click will occur after DOMContentLoaded event has already fired 
+  : SET_TIMEOUT( init, MS_MINIMAL ) // Bookmarklet click will occur after DOMContentLoaded event has already fired 
 
 );
+
+
+// } )(); // IIFE wrapper to make it easy to disable everything (to confirm something still occurs without my resizer)
