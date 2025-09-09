@@ -1,5 +1,5 @@
 // MarkDownLivePreview.com-resizer.js -- bookmarklet to add 'Toggle Editor' (and also width-resizer, and 'Print') - instead of waiting for repo update that might use something like this <script defer src="resizer.js"></script>
-// 3551 char  javascript:void function(){"use strict";const e="extra-button",t="minedit",n="mouse",i="width",d="click",r="editor",o=document,l=e=>(e??"").replace(/[\u200d]/g,"").replace(/\s+/g," ").trim(),a=e=>o.getElementById(e),s=(e,t)=>[...(t||o).querySelectorAll(e)],c=(e,t)=>Object.assign(o.createElement(e||"div"),t),p=(e,...t)=>e.addEventListener(...t),u=(e,...t)=>e.removeEventListener(...t),m=e=>e.preventDefault(),f=setTimeout,h=40,g=window,y=(e="resizer-css")=>{if(a(e))return;const t=["\nbody {\n  margin: 0;\n  height: 100vh;\n  overflow: hidden;\n}\n#container {\n  display: flex;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n}\n#resizer {\n  width: 4px;\n  background-color: green;\n  cursor: col-resize;\n  flex-shrink: 0;\n}\n"],n=["\n#edit, #preview {\n  flex-grow: 1;\n  overflow: auto;\n  transition: flex 0.02s ease;\n}\n.extra-button {\n  margin-left: 16px;\n}\n.minedit {\n  flex: 0 0 0px !important;\n}\n"],i=o.head.insertAdjacentElement("afterBegin",c("style",{id:e,innerHTML:(M?"":t[0])+n[0]}));return i},b=(e,t)=>{const n=e.getBoundingClientRect();return t?n[t]:n},v=(r=99,l="resizer",s="toggle-button")=>{var y=Math.abs;if(a(l))return;let v=!1,w=0,x=0;const L=200,E=a("copy-button").insertAdjacentElement("afterEnd",c(0,{id:s,innerHTML:`<a href="#">Toggle Editor</a>`,className:e})),T=k.insertBefore(c(0,{id:l}),z),B=a("edit"),C=()=>b(B,i),H=()=>b(k,i),j=()=>B.classList.contains(t),A=(e,n)=>{if(e>=r||n){const i=H();i-e>=r&&(n||j()||(w=e/i,I(w,!0)),B.classList.remove(t),B.style.flex=`0 0 ${e}px`)}},N=e=>{v&&A(e.clientX-b(k,"left"))},_=()=>{v=!1,u(o,n+"move",N),u(o,n+"up",_),I(w)},D=z._?.Storehouse,S=z._?.localStorageNamespace,q="last_ratio",I=(e,t,n=new Date)=>{(!t||n>x)&&(D?.setItem(S,q,e,new Date(2099,1,1)),x=+n+L)},O=C()/H(),P=D?.getItem(S,q);return M||(p(M||T,"dblclick",e=>{m(e),A(O*H(),!0),I(O)}),p(T,n+"down",e=>{v=!0,m(e),p(o,n+"move",N),p(o,n+"up",_),I(w)}),p(g,"resize",()=>{if(!j()){const e=H(),t=C(),n=e-t<r;A(n?t<r?t:e-r:e*w,n)}}),P&&.01<y(P-O)&&A(H()*P,!0),f(()=>{w=C()/H(),P||I(w)},h)),T.title="drag to resize, double-click to return to center",M&&(M.title=T.title),p(E,d,e=>{m(e),B.classList.toggle(t)}),T},w=e=>T?.getValue()??s(".sticky-widget-lines,.view-line",a(r)).map(e=>e.style.top.padStart(9,0)+e.innerText).sort().map(e=>e.slice(9)).join("\n"),x=e=>{const t=w().split("\n").map(e=>l(e)),n=(t.find(e=>(e.match(/^#\s+(.+)/)||[])[1])??t.find(e=>(e.match(/^##\s+(.+)/)||[])[1])??t.filter(e=>e.length)[0]??"").replace(/^##?\s+/,"");return n?.length?n:e},L=(t="print-button",n="print-child")=>{if(a(t))return;const i=o.title,r=a("sync-button").insertAdjacentElement("beforeBegin",c(0,{id:t,innerHTML:`<a href="#">Print</a>`,className:e})),u=()=>{const e=prompt("Printing: what title?",x(o.title)),t=l(e);if(null==e)return;o.title=t.length?t:i,a(n)?.remove();const d=a("output"),r=o.head.cloneNode(!0);s("script",r).forEach(e=>e.remove()),r.appendChild(c("style",{textContent:"@media print { body { height: auto !important; } }"}));const p=c("iframe",{id:n});p.style.display="none",o.body.appendChild(p);const u=p.contentWindow,m=p.contentDocument||u.document;p.onload=()=>{f(()=>{u.focus(),u.print(),f(()=>{p?.remove()},h)},h)},m.open(),m.write("<html><head>"+r.innerHTML+"</head><body>"+d.outerHTML+"</body></html>"),m.close()};return p(r,d,e=>{m(e),u()}),r},E=()=>{k=a("container"),z=a("preview"),M=a("split-divider"),k&&z?(T=z._?.editor??g.ace?.edit(r),y(),v(),L()):location="https://darrensem.github.io/markdown/"};let k,z,M,T;void(/loading/.test(o.readyState)?p(o,"DOMContentLoaded",E):f(E,h))}();
+// (08Sep2025 727pm) 3542 char  javascript:void function(){"use strict";const e="extra-button",t="minedit",i="mouse",n="width",r="click",d="editor",o=document,l=e=>(e??"").replace(/[\u200d]/g,"").replace(/\s+/g," ").trim(),a=e=>o.getElementById(e),s=(e,t)=>[...(t||o).querySelectorAll(e)],c=(e,t)=>Object.assign(o.createElement(e||"div"),t),p=(e,...t)=>e.addEventListener(...t),m=(e,...t)=>e.removeEventListener(...t),u=e=>e.preventDefault(),h=setTimeout,f=40,g=window,y=(e="resizer-css")=>{if(a(e))return;const t=["\nbody {\n  margin: 0;\n  height: 100vh;\n  overflow: hidden;\n}\n#container {\n  display: flex;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n}\n#resizer {\n  width: 4px;\n  background-color: green;\n  cursor: col-resize;\n  flex-shrink: 0;\n}\n"],i=["\n#edit, #preview {\n  flex-grow: 1;\n  overflow: auto;\n  transition: flex 0.02s ease;\n}\n.extra-button {\n  margin-left: 16px;\n}\n.minedit {\n  flex: 0 0 0px !important;\n}\n"],n=o.head.insertAdjacentElement("afterBegin",c("style",{id:e,innerHTML:(z?"":t[0])+i[0]}));return n},b=(e,t)=>{const i=e.getBoundingClientRect();return t?i[t]:i},v=(d=99,l="resizer",s="toggle-button")=>{var y=Math.abs;if(a(l))return;let v=!1,w=0,x=0;const L=200,E=a("copy-button").insertAdjacentElement("afterEnd",c(0,{id:s,innerHTML:"<a href=\"#\">Toggle Editor</a>",className:e})),M=k.insertBefore(c(0,{id:l}),T),B=a("edit"),C=()=>b(B,n),H=()=>b(k,n),j=()=>B.classList.contains(t),A=(e,i)=>{if(e>=d||i){const n=H();n-e>=d&&(i||j()||(w=e/n,q(w,!0)),B.classList.remove(t),B.style.flex="0 0 "+e+"px")}},N=e=>{v&&A(e.clientX-b(k,"left"))},_=()=>{v=!1,m(o,i+"move",N),m(o,i+"up",_),q(w)},D=T._?.Storehouse,S=T._?.localStorageNamespace,P="last_ratio",q=(e,t,i=new Date)=>{(!t||i>x)&&(D?.setItem(S,P,e,new Date(2099,1,1)),x=+i+L)},I=C()/H(),O=D?.getItem(S,P);return z||(p(z||M,"dblclick",e=>{u(e),A(I*H(),!0),q(I)}),p(M,i+"down",e=>{v=!0,u(e),p(o,i+"move",N),p(o,i+"up",_),q(w)}),p(g,"resize",()=>{if(!j()){const e=H(),t=C(),i=e-t<d;A(i?t<d?t:e-d:e*w,i)}}),O&&.01<y(O-I)&&A(H()*O,!0),h(()=>{w=C()/H(),O||q(w)},f)),M.title="drag to resize, double-click to return to center",z&&(z.title=M.title),p(E,r,e=>{u(e),B.classList.toggle(t)}),M},w=e=>M?.getValue()??s(".sticky-widget-lines,.view-line",a(d)).map(e=>e.style.top.padStart(9,0)+e.innerText).sort().map(e=>e.slice(9)).join("\n"),x=e=>{const t=w().split("\n").map(e=>l(e)),i=(t.find(e=>(e.match(/^#\s+(.+)/)||[])[1])??t.find(e=>(e.match(/^##\s+(.+)/)||[])[1])??t.filter(e=>e.length)[0]??"").replace(/^##?\s+/,"");return i?.length?i:e},L=(t="print-button",i="print-child")=>{if(a(t))return;let n=a(i);const d=o.title,m=a("sync-button").insertAdjacentElement("beforeBegin",c(0,{id:t,innerHTML:"<a href=\"#\">Print</a>",className:e})),g=e=>(e??n)?.remove(),y=()=>{g();const e=prompt("Printing: what title?",x(o.title)),t=l(e);if(null==e)return;o.title=t.length?t:d;const r=()=>{h(()=>{u.focus(),u.print()},f)},p=a("output"),m=o.head.cloneNode(!0);s("script",m).forEach(e=>e.remove()),m.appendChild(c("style",{textContent:"@media print { body { height: auto !important; } }"})),n=c("iframe",{id:i,onload:r}),n.style.display="none",o.body.appendChild(n);const u=n.contentWindow,y=n.contentDocument||u.document,b="<head>"+m.innerHTML+"</head><body>"+p.outerHTML+"</body>";n.srcdoc="<html>"+b+"</html>"};return p(m,r,e=>{u(e),y()}),m},E=()=>{k=a("container"),T=a("preview"),z=a("split-divider"),k&&T?(M=T._?.editor??g.ace?.edit(d),y(),v(),L()):location="https://darrensem.github.io/markdown/"};let k,T,z,M;void(/loading/.test(o.readyState)?p(o,"DOMContentLoaded",E):h(E,f))}();
 // original version of my [Toggle Editor] idea was this Issue: https://github.com/tanabe/markdown-live-preview/issues/56
 
 
@@ -132,7 +132,7 @@ const setupResizer = (MIN_WIDTH_EDITOR_PANE = 99, ID_RESIZER = "resizer", ID_TOG
     "afterEnd",
     createDiv( 0, {
       id: ID_TOGGLE_BUTTON,
-      innerHTML: `<a href="#">Toggle Editor</a>`,
+      innerHTML: '<a href="#">Toggle Editor</a>',
       className: CLASS_EXTRA_BUTTON
     } )
   );
@@ -166,7 +166,7 @@ const setupResizer = (MIN_WIDTH_EDITOR_PANE = 99, ID_RESIZER = "resizer", ID_TOG
         };
 
         editPane.classList.remove(CLASS_MIN_EDIT);
-        editPane.style.flex = `0 0 ${ newEditWidth }px`;
+        editPane.style.flex = "0 0 " + newEditWidth + "px";
 
       };
 
@@ -338,29 +338,52 @@ const getTitle = (defaultTitle) => {
 const setupPrintButton = (ID_PRINT_BUTTON = "print-button", ID_PRINT_CHILD = "print-child") => {
   if ( qi(ID_PRINT_BUTTON) ) return;
 
+  let childframe = qi(ID_PRINT_CHILD);
+
   const originalTitle = doc.title;
   
   const printButton = qi("sync-button").insertAdjacentElement(
     "beforeBegin",
     createDiv( 0, {
       id: ID_PRINT_BUTTON,
-      innerHTML: `<a href="#">Print</a>`,
+      innerHTML: '<a href="#">Print</a>',
       className: CLASS_EXTRA_BUTTON
     } )
   );
   
+  const removeChild = (element) => ( element ?? childframe )?.remove();
+
   const handlePrintClick = () => {
 
-    const newTitle = prompt( "Printing: what title?", getTitle(doc.title) );
-    
+    // Ensure no existing <iframe> with ID_PRINT_CHILD, before creating a new one
+    // ...and in fact, before prompt(), to give full flexibility when removal happens, rather than "during" printing (e.g. "afterprint" event -- especially unreliable on mobile)
+    removeChild();
+
+    const newTitle = (
+      prompt( "Printing: what title?", getTitle(doc.title) )
+    );
+
     const trimmedTitle = trimmer(newTitle);
-    
+
     if (newTitle == null) return;
-    
+
     doc.title = trimmedTitle.length ? trimmedTitle : originalTitle;
 
+    const handleChildLoad = () => {
 
-    qi(ID_PRINT_CHILD)?.remove();
+      SET_TIMEOUT( () => {
+
+        // if (!"DEBUG_CHILD_REMOVE_AFTER_PRINTING_AFTER_PRINT()_CALLED_") { SET_TIMEOUT( removeChild, 9000 ); } else { ; };
+        //// NOTE: "afterprint" event fires BEFORE the "Print Preview" dialog finishes loading/opening on mobile cell phones sometimes!
+        //// Therefore, 100% permanently commenting out this line: on( childwin, "afterprint", (evt) => removeChild() );
+        //// "Baseline Widely available" (Oct 2019+) https://developer.mozilla.org/en-US/docs/Web/API/Window/afterprint_event
+
+        childwin.focus();
+        childwin.print();
+
+      }, MS_MINIMAL );
+
+    };
 
     const elPreviewHTML = qi("output");
 
@@ -369,15 +392,16 @@ const setupPrintButton = (ID_PRINT_BUTTON = "print-button", ID_PRINT_CHILD = "pr
 
     head.appendChild(
       createDiv( "style", {
-        textContent: // textContent instead of innerText when assigning CSS text inside <style> elements, to ensure it preserves the exact textual content needed for the browser to parse CSS properly (no possible changes to whitespace hidden content display: none etc.)
+        textContent: // reminder: textContent instead of innerText when assigning CSS text inside <style> elements, to ensure it preserves the exact textual content needed for the browser to parse CSS properly (no possible changes to whitespace hidden content display: none etc.)
         "@media print {"
         + " body { height: auto !important; }"
         + " }"
       } )
     );
 
-    const childframe = createDiv( "iframe", {
-      id: ID_PRINT_CHILD
+    childframe = createDiv( "iframe", {
+      id: ID_PRINT_CHILD,
+      onload: handleChildLoad
     } );
 
     childframe.style.display = "none"; // 'display: none' to ensure never visible, even though will self-remove immediately after .print() is called
@@ -388,24 +412,12 @@ const setupPrintButton = (ID_PRINT_BUTTON = "print-button", ID_PRINT_CHILD = "pr
 
     const childdoc = childframe.contentDocument || childwin.document;
 
-    childframe.onload = () => {
+    const innerhtml = (
+      ( "<head>" + head.innerHTML + "</head><body>" + elPreviewHTML.outerHTML + "</body>" )
+    );
 
-      SET_TIMEOUT( () => {
-
-        childwin.focus();
-        childwin.print();
-
-        SET_TIMEOUT( () => {
-          childframe?.remove();
-        }, MS_MINIMAL );
-
-      }, MS_MINIMAL );
-
-    };
-
-    childdoc.open();
-    childdoc.write( "<html><head>" + head.innerHTML + "</head><body>" + elPreviewHTML.outerHTML + "</body></html>" );
-    childdoc.close();
+    ( childframe.srcdoc = "<html>" + innerhtml + "</html>" );
+    //// ^ NOTE: childframe.srcdoc="<html...>" actually triggers childframe.onload, unlike childframe.documentElement.outerHTML = "<html...>" )
 
   };
 
