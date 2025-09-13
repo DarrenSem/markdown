@@ -1,7 +1,6 @@
 // MarkDownLivePreview.com-printButton.js -- bookmarklet to add 'Print' of preview HTML - instead of waiting for repo update that might use something like this <script src="./static/printButton.js"></script>
-// (12Sep2025 325pm) 2000 char  javascript:void function(){void function(){"use strict";const a="editor",b=document,c=a=>(a??"").replace(/[\u200d]/g,"").replace(/\s+/g," ").trim(),d=a=>b.getElementById(a),e=(a,c)=>[...(c||b).querySelectorAll(a)],f=(a,c)=>Object.assign(b.createElement(a||"div"),c),g=setTimeout,h=40,i=window,j=b=>p?.getValue()??e(".sticky-widget-lines,.view-line",d(a)).map(a=>a.style.top.padStart(9,0)+a.innerText).sort().map(a=>a.slice(9)).join("\n"),k=a=>{const b=j().split("\n").map(a=>c(a)),d=(b.find(a=>(a.match(/^#\s+(.+)/)||[])[1])??b.find(a=>(a.match(/^##\s+(.+)/)||[])[1])??b.filter(a=>a.length)[0]??"").replace(/^##?\s+/,"");return d?.length?d:a},l=(a="print-button")=>{if(d(a))return;const i="print-"+(location.href.match(/(\/([^/]+))+/)?.[1]??"").replace(/[^a-z]+/gi,""),j=b.title,l=d("sync-button").insertAdjacentElement("beforeBegin",f(0,{id:a,innerHTML:"<style>.extra-button { margin-left: 16px; } </style><a href=\"#\">Print</a>",title:"Print (Save as PDF)",className:"extra-button"}));return l.addEventListener("click",a=>{a.preventDefault();try{let a,l,m;d(i)?.remove();const n=prompt("Printing: what title?",k(b.title)),o=c(n),p=!o.length,q=p?j:o;if(null==n)return null;p&&(b.title=q),a=b.head.cloneNode(!0),e("script",a).forEach(a=>a.remove()),a.appendChild(f("style",{textContent:"@media print { body { height: auto !important; } }"}));const r="<!DOCTYPE html><html lang='en'><head>"+(a.innerHTML||"<meta charset='UTF-8'><title>printable</title>")+"</head><body>"+(d("output").outerHTML||"")+"<style></style></body></html>",s=()=>{m.document.title=q,g(()=>{m.focus(),g(()=>{m.print()},h)},h)};return l=b.createElement("iframe"),l.srcdoc=r,l.style.display="none",b.body.appendChild(l),m=l.contentWindow,l.onload=s,(l.id=i,l.title=i,r)}catch(a){return a.stack}}),l},m=()=>{n=d("container"),o=d("preview"),n&&o?(p=o._?.editor??i.ace?.edit(a),l()):location="https://darrensem.github.io/markdown/"};let n,o,p;void(/loading/.test(b.readyState)?b.addEventListener("DOMContentLoaded",m):g(m,h))}()}();
+// (12Sep2025 615pm) 1980 char  javascript:void function(){void function(){"use strict";const a="editor",b=document,c=a=>(a??"").replace(/[\u200d]/g,"").replace(/\s+/g," ").trim(),d=a=>b.getElementById(a),e=(a,c)=>[...(c||b).querySelectorAll(a)],f=(a,c)=>Object.assign(b.createElement(a||"div"),c),g=a=>a?.remove(),h=setTimeout,i=40,j=window,k=b=>q?.getValue()??e(".sticky-widget-lines,.view-line",d(a)).map(a=>a.style.top.padStart(9,0)+a.innerText).sort().map(a=>a.slice(9)).join("\n"),l=a=>{const b=k().split("\n").map(a=>c(a)),d=(b.find(a=>(a.match(/^#\s+(.+)/)||[])[1])??b.find(a=>(a.match(/^##\s+(.+)/)||[])[1])??b.filter(a=>a.length)[0]??"").replace(/^##?\s+/,"");return d?.length?d:a},m=(a="print-button")=>{if(d(a))return;const j="print-"+(location.href.match(/(\/([^/]+))+/)?.[1]??"").replace(/[^a-z]+/gi,""),k=b.title,m=d("sync-button").insertAdjacentElement("beforeBegin",f(0,{id:a,innerHTML:"<style>.extra-button { margin-left: 16px; } </style><a href=\"#\">Print</a>",title:"Print (Save as PDF)",className:"extra-button"}));return m.addEventListener("click",a=>{a.preventDefault();try{let a,m,n;g(d(j));const o=prompt("Printing: what title?",l(b.title)),p=c(o),q=!p.length,r=q?k:p;if(null==o)return null;q&&(b.title=r),a=b.head.cloneNode(!0),e("script",a).forEach(g),a.appendChild(f("style",{textContent:"@media print { body { height: auto !important; } }"}));const s="<!DOCTYPE html><html lang='en'><head>"+(a.innerHTML||"<meta charset='UTF-8'><title>printable</title>")+"</head><body>"+(d("output").outerHTML||"")+"<style></style></body></html>",t=()=>{h(()=>{n.focus(),h(()=>{n.print()},i)},i),n.document.title=r};return m=f("iframe",{id:j,title:j}),m.srcdoc=s,m.style.display="none",b.body.appendChild(m),n=m.contentWindow,m.onload=t,s}catch(a){return a.stack}}),m},n=()=>{o=d("container"),p=d("preview"),o&&p?(q=p._?.editor??j.ace?.edit(a),m()):location="https://darrensem.github.io/markdown/"};let o,p,q;void(/loading/.test(b.readyState)?b.addEventListener("DOMContentLoaded",n):h(n,i))}()}();
 // original version of my [Toggle Editor] idea was this Issue: https://github.com/tanabe/markdown-live-preview/issues/56
-
 
 
 !"DEBUG_DISABLE" || ( void function() { // IIFE wrapper to ensure it works as stand-alone Bookmarklet; change to !!"DEBUG_DISABLE" for testing without this 'plugin' code (e.g. to confirm some functionality still works or a bug still occurs)
@@ -29,6 +28,8 @@ const qi = (id) => doc.getElementById(id);
 const qs = (sel, root) => [... (root || doc).querySelectorAll(sel) ];
 
 const createDiv = (tagName, options) => Object.assign( doc.createElement( tagName || "div" ), options );
+
+const REMOVE_ELEMENT = (element) => element?.remove(); // smaller MINIFY if 2+ usage IF even just 1 of 'normal' usage BUT ALSO 1+ of '.forEach' usage, because normal = 11 char for a?.remove() and .forEach = 24 char for .forEach(a=>a?.remove()) vs. 17 for definition ,X=a=>a?.remove() + 4 per normal usage: X(a) and {17}_or_even_{11} per .forEach usage: {.forEach(a=>X(a))}_or_even_{.forEach(X)} = {38_or_even_32} _[42 / {55_or_even_49}]_ versus 35 _[46 / 59]_
 
 const SET_TIMEOUT = setTimeout; // smaller MINIFY if 2+ usage vs. normal, because normal = 10 char for setTimeout vs. 13 for definition ,X=setTimeout + 1 per usage: X // 14 _15_ versus 10 _20_
 
@@ -134,7 +135,7 @@ const setupPrintButton = (ID_PRINT_BUTTON = "print-button") => {
 
       let printHead, frame, printwin;
 
-      qi(ID_PRINT_FRAME)?.remove();
+      REMOVE_ELEMENT( qi(ID_PRINT_FRAME) );
 
 
       // Offer choice of a different document.title (Cancel will abort immediately, before anything is generated)
@@ -156,7 +157,7 @@ const setupPrintButton = (ID_PRINT_BUTTON = "print-button") => {
 
       // Sanitize the <head> contents of all <script> tags then return the final contents to be printed
       printHead = doc.head.cloneNode(true);
-      qs("script", printHead).forEach(script => script.remove());
+      qs("script", printHead).forEach(REMOVE_ELEMENT);
 
       printHead.appendChild(
         createDiv( "style", {
@@ -180,8 +181,6 @@ const setupPrintButton = (ID_PRINT_BUTTON = "print-button") => {
       // Wait for content to load before printing
       const handleChildLoad = () => {
 
-        printwin.document.title = printTitle;
-
         SET_TIMEOUT( () => {
           printwin.focus();
 
@@ -191,6 +190,8 @@ const setupPrintButton = (ID_PRINT_BUTTON = "print-button") => {
           }, MS_MINIMAL );
 
         }, MS_MINIMAL );
+
+        printwin.document.title = printTitle; // final step in case it throws due to browser security policies (cross-origin restrictions)
 
       };
 
@@ -204,6 +205,7 @@ const setupPrintButton = (ID_PRINT_BUTTON = "print-button") => {
 
         // Write the HTML then listen for .onload event
         if (printwin) {
+          printwin.name = ID_PRINT_FRAME;
           printwin.document.open();
           // ^ WARNING: BUG/QUIRK -- if printwin = window.open(), printwin.onload event MIGHT fail to trigger (aka NEVER FIRES!) IF [ missing printwin.document.open() ] AND [ printwin.document includes zero <STYLE> tags ] -- SOMETIMES a problem (e.g. fails in Edge but ok in Chrome?)
           printwin.document.write(html);
@@ -215,7 +217,11 @@ const setupPrintButton = (ID_PRINT_BUTTON = "print-button") => {
         };
       } else {
         // Create a new <iframe> element with the content
-        frame = doc.createElement("iframe");
+        frame = createDiv( "iframe", {
+          id: ID_PRINT_FRAME,
+          title: ID_PRINT_FRAME
+          // ^ .title attribute is different than [window.]document.title (<iframe> should always provide it for a11y, but window.title is not typically used)
+        } );
 
         // Write the HTML then listen for .onload event
         frame.srcdoc = html;
@@ -232,11 +238,6 @@ const setupPrintButton = (ID_PRINT_BUTTON = "print-button") => {
       // ^ WARNING: avoid using "afterprint" event -- unreliable: it might fire BEFORE the "Print Preview" dialog finishes loading/opening on mobile cell phones (sometimes)
       // Therefore, should never rely on something like this working as expected: printwin.addEventListener( "afterprint", (evt) => frame.remove ? frame.remove() : evt.target?.close() );
       // (Unfortunate, because that event is "Baseline Widely available" Oct 2019+) https://developer.mozilla.org/en-US/docs/Web/API/Window/afterprint_event
-
-      frame.id = ID_PRINT_FRAME;
-
-      frame.title = ID_PRINT_FRAME;
-      // ^ .title attribute is different than document.title (<iframe> should always provide it for a11y)
 
       return html;
 
