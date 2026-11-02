@@ -8,6 +8,19 @@
 if (false) { // #region Bookmarklet version history
 
 
+  //// 02Nov2026 842am: after tweaking onDblClick's REMOVE_ELEMENT logic, verified still BookMarklet-able, about to finalize margin-bottom
+  // 2784 char  javascript:void function(){void function(){"use strict";const a="editor",b=document,c=a=>(a??"").replace(/[\u200d]/g,"").replace(/\s+/g," ").trim(),d=a=>b.getElementById(a),e=(a,c)=>[...(c||b).querySelectorAll(a)],f=(a,c)=>Object.assign(b.createElement(a||"div"),c),g=a=>a?.remove(),h=setTimeout,i=40,j=window,k=b=>q?.getValue()??e(".sticky-widget-lines,.view-line",d(a)).map(a=>a.style.top.padStart(9,0)+a.innerText).sort().map(a=>a.slice(9)).join("\n"),l=a=>{const b=k().split("\n").map(a=>c(a)),d=(b.find(a=>(a.match(/^#\s+(.+)/)||[])[1])??b.find(a=>(a.match(/^##\s+(.+)/)||[])[1])??b.filter(a=>a.length)[0]??"").replace(/^##?\s+/,"");return d?.length?d:a},m=(a="print-button")=>{if(d(a))return;const j=prompt,k="print-"+(location.href.match(/(\/([^/]+))+/)?.[1]??"").replace(/[^a-z]+/gi,""),m=b.title,n=d("sync-button").insertAdjacentElement("beforeBegin",f(0,{id:a,innerHTML:"\n<style>\n.extra-button {\nmargin-left: 16px; \n/* ^ Ensure it doesn't overflow to hide */\n}\n</style>\n<a href=\"#\">Print</a>",title:"Print (Save as PDF)",className:"extra-button"})),o=a=>{try{let a,n,o;g(d(k));const p=j("Printing: what title?",l(b.title)),q=c(p),r=!q.length,s=r?m:q;if(null==p)return null;r&&(b.title=s),a=b.head.cloneNode(!0),e("script",a).forEach(g),a.appendChild(f("style",{textContent:"@media print { body { height: auto !important; } }"}));const t="<!DOCTYPE html><html lang='en'><head>"+(a.innerHTML||"<meta charset='UTF-8'><title>printable</title>")+"</head><body>"+(d("output").outerHTML||"")+"<style></style></body></html>",u=()=>{h(()=>{o.focus(),h(()=>{o.print()},i)},i),n.name=k,o.document.title=s};return h(a=>{b.title=a},4e3,b.title),b.title=s,(n=f("iframe",{id:k,title:k}),n.srcdoc=t,n.style.display="none",b.body.appendChild(n),o=n.contentWindow,n.onload=u,t)}catch(a){return a.stack}},p="CSS_EXTRA",q=a=>{a.preventDefault(),clearTimeout(r);let b;b="1.2";let c;c="0.7em";let e,f=d(p),g=f?.localName||"style",h=f?.innerHTML||"",i=f?.outerHTML||"",k="\n#output>p {line-height: "+b+"; margin-bottom: "+c+"; }\n",l=j("DoubleClick: append what HTML?\n\n(if no starting <tag> then defaults to <style> wrapper)\n",h||k),m=l==k._,n=(l||"").match(/^(\s*<\s*([\w-]+)([^>]*)>\s*)?([\s\S]*?)(\s*<\s*\/\s*\2\s*>\s*)?$/i),[o,q,s,t,u,v]=n||[];m||f?.remove(),l?.length&&(q||(s="style"),e="<"+s+" id=\""+p+"\""+(t||"")+">"+(u||"")+(q&&v||"</"+s+">"),document.head.insertAdjacentHTML("beforeend",e)),r=null};let r,s=500;return n.addEventListener("click",a=>{a.preventDefault(),r||(r=setTimeout(()=>{r=null,o(a)},s))}),n.addEventListener("dblclick",q),n},n=()=>{o=d("container"),p=d("preview"),o&&p?(q=p._?.editor??j.ace?.edit(a),m()):location="https://darrensem.github.io/markdown/"};let o,p,q;void(/loading/.test(b.readyState)?b.addEventListener("DOMContentLoaded",n):h(n,i))}()}();
+  //
+  //// 01Nov2026 820am: add btnPrint.onDblClick => prompt("<style id=" + ID_CSS_EXTRA + "> #output>p { line-height:1.2; } </style>")
+
+
+
+  //
+  //// TODO: FUTURE => JANUARY 2026 = /WIP/ -- do TEMP_COMPARE *later* after this /wip/ update!!!
+  //
+
+
+
   //// 13Sep2025 823am: ALWAYS set frame.name = ID_PRINT_FRAME (not just for WINDOW)
   // 1989 char  javascript:void function(){void function(){"use strict";const a="editor",b=document,c=a=>(a??"").replace(/[\u200d]/g,"").replace(/\s+/g," ").trim(),d=a=>b.getElementById(a),e=(a,c)=>[...(c||b).querySelectorAll(a)],f=(a,c)=>Object.assign(b.createElement(a||"div"),c),g=a=>a?.remove(),h=setTimeout,i=40,j=window,k=b=>q?.getValue()??e(".sticky-widget-lines,.view-line",d(a)).map(a=>a.style.top.padStart(9,0)+a.innerText).sort().map(a=>a.slice(9)).join("\n"),l=a=>{const b=k().split("\n").map(a=>c(a)),d=(b.find(a=>(a.match(/^#\s+(.+)/)||[])[1])??b.find(a=>(a.match(/^##\s+(.+)/)||[])[1])??b.filter(a=>a.length)[0]??"").replace(/^##?\s+/,"");return d?.length?d:a},m=(a="print-button")=>{if(d(a))return;const j="print-"+(location.href.match(/(\/([^/]+))+/)?.[1]??"").replace(/[^a-z]+/gi,""),k=b.title,m=d("sync-button").insertAdjacentElement("beforeBegin",f(0,{id:a,innerHTML:"<style>.extra-button { margin-left: 16px; } </style><a href=\"#\">Print</a>",title:"Print (Save as PDF)",className:"extra-button"}));return m.addEventListener("click",a=>{a.preventDefault();try{let a,m,n;g(d(j));const o=prompt("Printing: what title?",l(b.title)),p=c(o),q=!p.length,r=q?k:p;if(null==o)return null;q&&(b.title=r),a=b.head.cloneNode(!0),e("script",a).forEach(g),a.appendChild(f("style",{textContent:"@media print { body { height: auto !important; } }"}));const s="<!DOCTYPE html><html lang='en'><head>"+(a.innerHTML||"<meta charset='UTF-8'><title>printable</title>")+"</head><body>"+(d("output").outerHTML||"")+"<style></style></body></html>",t=()=>{h(()=>{n.focus(),h(()=>{n.print()},i)},i),m.name=j,n.document.title=r};return m=f("iframe",{id:j,title:j}),m.srcdoc=s,m.style.display="none",b.body.appendChild(m),n=m.contentWindow,m.onload=t,s}catch(a){return a.stack}}),m},n=()=>{o=d("container"),p=d("preview"),o&&p?(q=p._?.editor??j.ace?.edit(a),m()):location="https://darrensem.github.io/markdown/"};let o,p,q;void(/loading/.test(b.readyState)?b.addEventListener("DOMContentLoaded",n):h(n,i))}()}();
   // WINDOW instead of IFRAME: 2002 char  javascript:void function(){void function(){"use strict";const a="editor",b=document,c=a=>(a??"").replace(/[\u200d]/g,"").replace(/\s+/g," ").trim(),d=a=>b.getElementById(a),e=(a,c)=>[...(c||b).querySelectorAll(a)],f=(a,c)=>Object.assign(b.createElement(a||"div"),c),g=a=>a?.remove(),h=setTimeout,i=40,j=window,k=b=>q?.getValue()??e(".sticky-widget-lines,.view-line",d(a)).map(a=>a.style.top.padStart(9,0)+a.innerText).sort().map(a=>a.slice(9)).join("\n"),l=a=>{const b=k().split("\n").map(a=>c(a)),d=(b.find(a=>(a.match(/^#\s+(.+)/)||[])[1])??b.find(a=>(a.match(/^##\s+(.+)/)||[])[1])??b.filter(a=>a.length)[0]??"").replace(/^##?\s+/,"");return d?.length?d:a},m=(a="print-button")=>{if(d(a))return;const j="print-"+(location.href.match(/(\/([^/]+))+/)?.[1]??"").replace(/[^a-z]+/gi,""),k=b.title,m=d("sync-button").insertAdjacentElement("beforeBegin",f(0,{id:a,innerHTML:"<style>.extra-button { margin-left: 16px; } </style><a href=\"#\">Print</a>",title:"Print (Save as PDF)",className:"extra-button"}));return m.addEventListener("click",a=>{a.preventDefault();try{let a,m,n;g(d(j));const o=prompt("Printing: what title?",l(b.title)),p=c(o),q=!p.length,r=q?k:p;if(null==o)return null;q&&(b.title=r),a=b.head.cloneNode(!0),e("script",a).forEach(g),a.appendChild(f("style",{textContent:"@media print { body { height: auto !important; } }"}));const s="<!DOCTYPE html><html lang='en'><head>"+(a.innerHTML||"<meta charset='UTF-8'><title>printable</title>")+"</head><body>"+(d("output").outerHTML||"")+"<style></style></body></html>",t=()=>{h(()=>{n.focus(),h(()=>{n.print()},i)},i),m.name=j,n.document.title=r};return n=window.open("","_blank","width=800,height=600"),n&&(n.document.open(),n.document.write(s),n.document.close(),m=n,n.onload=t),s}catch(a){return a.stack}}),m},n=()=>{o=d("container"),p=d("preview"),o&&p?(q=p._?.editor??j.ace?.edit(a),m()):location="https://darrensem.github.io/markdown/"};let o,p,q;void(/loading/.test(b.readyState)?b.addEventListener("DOMContentLoaded",n):h(n,i))}()}();
@@ -168,7 +181,12 @@ const getTitle = (defaultTitle) => {
 };
 
 const setupPrintButton = (ID_PRINT_BUTTON = "print-button") => {
+
+  // debugger;
+
   if ( qi(ID_PRINT_BUTTON) ) return;
+
+  const PROMPT_OBJECT = prompt;
 
   const ID_PRINT_FRAME = "print-" + (location.href.match(/(\/([^/]+))+/)?.[1] ?? "").replace(/[^a-z]+/gi, "");
 
@@ -179,16 +197,24 @@ const setupPrintButton = (ID_PRINT_BUTTON = "print-button") => {
     createDiv( 0, {
       id: ID_PRINT_BUTTON,
       innerHTML: (
-        "<style>" + "." + CLASS_EXTRA_BUTTON + " { margin-left: 16px; } " + "</style>" +
-        '<a href="#">Print</a>'
+
+        "\n<style>\n"
+        + "." + CLASS_EXTRA_BUTTON + " {\n"
+        + "margin-left: 16px; "
+        + "\n/* ^ Ensure it doesn't overflow to hide */\n"
+        + "}\n"
+        + "</style>\n"
+        
+        + '<a href="#">Print</a>'
       ),
       title: "Print (Save as PDF)",
       className: CLASS_EXTRA_BUTTON
     } )
   );
 
-  printButton.addEventListener( "click", (evt) => {
-    evt.preventDefault();
+
+
+  const handlePrintSingleClick = (evt) => {
 
     try {
 
@@ -200,7 +226,7 @@ const setupPrintButton = (ID_PRINT_BUTTON = "print-button") => {
       // Offer choice of a different document.title (Cancel will abort immediately, before anything is generated)
       const promptTitle = (
         (!"DEBUG_SKIP_PROMPT_FOR_ACCURATE_COMPARISON") && getTitle(doc.title) ||
-        prompt( "Printing: what title?", getTitle(doc.title) )
+        PROMPT_OBJECT( "Printing: what title?", getTitle(doc.title) )
       );
 
       const trimmedTitle = trimmer(promptTitle);
@@ -257,7 +283,16 @@ const setupPrintButton = (ID_PRINT_BUTTON = "print-button") => {
       };
 
 
-      if (!"DEBUG_ALWAYS_UPDATE_PARENT_TITLE") { doc.title = printTitle; } else { ; };
+      if (!"DEBUG_SKIP_UPDATE_PARENT_TITLE") { ; } else {
+
+        SET_TIMEOUT( previousTitle => {
+          doc.title = previousTitle;
+        }, 4000 , doc.title );
+        // }, MS_MINIMAL * 100 , doc.title );
+
+        doc.title = printTitle;
+
+      };
 
 
       if (!"DEBUG_WINDOW_INSTEAD_OF_IFRAME") {
@@ -306,9 +341,125 @@ const setupPrintButton = (ID_PRINT_BUTTON = "print-button") => {
       return err.stack;
     };
 
-  } );
+  }; // end const handlePrintSingleClick = (evt) => {
+
+
+  const ID_CSS_EXTRA = "CSS_EXTRA";
+
+  const handlePrintDoubleClick = (evt) => {
+
+    evt.preventDefault();
+
+    clearTimeout(timerPrintSingleClick);
+
+
+    let LINE_HEIGHT; // line-height: XYZ;
+    // LINE_HEIGHT = "1.5"; // original (XYZ = 24px)
+    LINE_HEIGHT = "1.2"; // lines closer together but still easily skimmable
+    
+    let PARAGRAPH_SPACING; // margin-bottom: XYZ;
+    // PARAGRAPH_SPACING = "1.0em"; // original (XYZ = 16px)
+    PARAGRAPH_SPACING = "0.7em"; // paragraphs closer together but still easily skimmable
+    
+
+    let currentExtra = qi(ID_CSS_EXTRA);
+
+    let extraTag = currentExtra?.localName || "style"; // let extraTag = currentExtra?.tagName || "STYLE";
+
+    let extraHTML = currentExtra?.innerHTML || "";
+
+    let extraOuter = currentExtra?.outerHTML || "";
+
+    // console.warn( "\n\n" + ":handlePrintDoubleClick()", { currentExtra, extraTag, extraHTML, extraOuter } );
+    // debugger;
+
+    let defaultHTML = (
+      "\n#output>p {"
+      + "line-height: " + LINE_HEIGHT + "; "
+      + "margin-bottom: " + PARAGRAPH_SPACING + "; "
+      + "}\n"
+    );
+    // ^ if no wrapper tag then presumes <style>...</style>
+
+    let newHTML = PROMPT_OBJECT( "DoubleClick: append what HTML?\n\n(if no starting <tag> then defaults to <style> wrapper)\n", extraHTML || defaultHTML );
+    let isCancel = newHTML == defaultHTML._;
+
+    let finalHTML;
+    let z_matches = (newHTML || "").match(/^(\s*<\s*([\w-]+)([^>]*)>\s*)?([\s\S]*?)(\s*<\s*\/\s*\2\s*>\s*)?$/i);
+    let [full, tag0, tagName, tagAttributes, innerHTML, tag1] = z_matches || [];
+
+    // console.log( "BEFORE:", { currentExtra, finalHTML, full, tag0, tagName, tagAttributes, innerHTML, tag1, z_matches } );
+    // debugger;
+
+
+    if (!isCancel) {
+      REMOVE_ELEMENT(currentExtra);
+    };
+
+    if (newHTML?.length) {
+    // if (newHTML?.trim()) {
+
+      if (!tag0) {
+        tagName = "style";
+      };
+
+      finalHTML = (
+        "<" + tagName
+        + " id=" + '"' + ID_CSS_EXTRA + '"'
+        // ^ CRITICAL to set ID before tagAttributes possibly does (1st value is "winner")
+        + ( tagAttributes || "" )
+        + ">"
+        + ( innerHTML || "" )
+        + ( ( tag0 && tag1 ) || "</" + tagName + ">" )
+      );
+
+      // console.log( " AFTER:", { currentExtra, finalHTML, full, tag0, tagName, tagAttributes, innerHTML, tag1, z_matches } );
+      // debugger;
+
+      document.head.insertAdjacentHTML("beforeend", finalHTML);
+
+    }; // end if (newHTML?.length) {
+
+
+    timerPrintSingleClick = null;
+    // ^ CRITICAL to have as final step, to allow single-clicks again
+
+  }; // end const handlePrintDoubleClick = (evt) => {
+
+
+  let timerPrintSingleClick;
+
+  // let MS_DELAY_SINGLE_CLICK = 3500;
+  let MS_DELAY_SINGLE_CLICK = 500;
+
+  printButton.addEventListener( "click", (evt) => {
+
+    evt.preventDefault();
+
+    if (timerPrintSingleClick) return; // TODO: confirm if this is even needed???
+    //// ^ use this line if you want a 2nd single-click to keep using the EXISTING timer
+    // clearTimeout(timerPrintSingleClick);
+    //// ^ use this line if you want a 2nd single-click to RESTART the timer
+    // ^ (tbh, the choice is really only noticeable if MS_DELAY_SINGLE_CLICK is very long)
+
+
+    // if (evt.detail < 2) { timerPrintSingleClick = setTimeout( () => {
+    timerPrintSingleClick = setTimeout( () => {
+
+      timerPrintSingleClick = null;
+
+      handlePrintSingleClick(evt);
+
+    }, MS_DELAY_SINGLE_CLICK ); // end timerPrintSingleClick = setTimeout( () => {
+    // } else { handlePrintDoubleClick(evt); }; // end // if (evt.detail < 2) {
+
+
+  } ); // end printButton.addEventListener( "click", (evt) => {
+
+  printButton.addEventListener( "dblclick", handlePrintDoubleClick );
 
   return printButton;
+
 };
 
 const init = () => {

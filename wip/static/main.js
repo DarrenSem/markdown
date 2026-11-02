@@ -486,16 +486,24 @@ This web site is using ${"`"}markedjs/marked${"`"}.
                     // debugger;
 
                     presetValue(reader.result); // TODO: temp, until readerFInally is clear...
+                    lastSavedTitle = filename; // TODO: temp
+                    document.title = lastSavedTitle; // TODO: temp
                     // readerFinally(err, text);
 
-                };
 
+                }; // end reader.onload = (evt) => {
+
+                // debugger;
+                let filename;
+                let size;
+                let type;
                 // debugger; // let file = (fileInput.files).find(file => file.size);
-                let file = Array.from(fileInput.files).find (file => file.size); if (file) {
-                let filename = file.name;
-                let size = file.size;
-                let type = file.type;
-                console.log("handleFileInputChange:", { filename, size, type } ); }; // if (file) {
+                let file = Array.from(fileInput.files).find(file => file.size); if (file) {
+                    filename = file.name;
+                    size = file.size;
+                    type = file.type;
+                    console.log("handleFileInputChange:", { filename, size, type } );
+                }; // if (file) {
                 // debugger;
 
                 reader.readAsText(file);
